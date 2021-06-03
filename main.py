@@ -1,12 +1,16 @@
-from PyQt5.QtCore import QLine
-from PyQt5.QtWidgets import QApplication, QDateEdit, QLabel, QLineEdit, QMainWindow, QPushButton
+from PyQt5.QtWidgets import QApplication, QLabel, QLineEdit, QWidget, QPushButton
 from sys import argv, exit
-import math
+from math import pow
+from os import system
 
 
-class Main(QMainWindow):
+class Main(QWidget):
     def __init__(self):
         super().__init__()
+        system("cls")
+        self.array_mx=[]
+        self.array_x=[]
+        self.array_y=[]
         self.setWindowTitle("MTKC")
         self.resize(500, 1000)
         self.ht()
@@ -14,14 +18,15 @@ class Main(QMainWindow):
         self.bellektanima()
         self.manhattan()
         self.minkowski()
+        self.oklid()
+        self.Knn()
         self.total = 0.0
         self.lbl2 = QLabel(self)
         self.lbl2.setText(100*'x')
         self.lbl2.move(10, 200)
         self.lbl2.resize(400, 20)
-
         self.reset = QPushButton(self)
-        self.reset.setText("resetle")
+        self.reset.setText("reset")
         self.reset.move(400, 10)
         self.reset.clicked.connect(self.reset_)
         self.toplat = QPushButton(self)
@@ -33,8 +38,9 @@ class Main(QMainWindow):
         sayı = float(self.lbl_hsonuc.text())-float(self.htxtsonuc.text())
         self.lbl_htsonuc.setText(f"{round(sayı,5)}")
     def reset_(self):
+        self.array_x=[]
+        self.array_y=[]
         self.total = 0.0
-
     def ht(self):
         self.ht = QLabel(self)
         self.ht.setText("H(T):")
@@ -62,7 +68,6 @@ class Main(QMainWindow):
         self.lbl.move(10, 60)
         self.lbl.setText(100*'x')
         self.lbl.resize(400, 10)
-
     def h_x_t(self):
         self.lblhxt = QLabel(self)
         self.lblhxt.move(10, 100)
@@ -100,7 +105,6 @@ class Main(QMainWindow):
         self.lbl_htsonuc=QLabel(self)
         self.lbl_htsonuc.setText("H(T)-H(X,T)")
         self.lbl_htsonuc.move(150,250)
-
     def hesapla2(self):
         tur = float(self.htxtxt.text())/float(self.htxtxt2.text())
         toplam = float(self.htxtxt3.text())+float(self.htxtxt4.text())
@@ -109,7 +113,6 @@ class Main(QMainWindow):
         sonuc = -1*(math.log2(sayı1)*sayı1+math.log2(sayı2)*sayı2)*tur
         self.total += sonuc
         self.htxtsonuc.setText(f"{round(self.total,4)}")
-
     def hesapla1(self):
         sayı1 = float(self.ht_txt.text())
         sayı2 = float(self.ht_txt2.text())
@@ -118,7 +121,6 @@ class Main(QMainWindow):
         sayı2 /= toplam
         sonuc = -1*(math.log2(sayı1)*sayı1+math.log2(sayı2)*sayı2)
         self.lbl_hsonuc.setText(f"{round(sonuc,4)}")
-
     def gini(self):
         self.lbl3=QLabel(self)
         self.lbl3.setText(50*"x"+"   \n   gini hesaplaması")
@@ -167,13 +169,11 @@ class Main(QMainWindow):
         solcu = (float(self.soliyi.text())/solt)**2
         sagci = (float(self.solkotu.text())/solt)**2
         sol=1-(solcu+sagci)
-        print(f"sol {sol}")
         #######
         sagt = float(self.sagiyi.text())+float(self.sagkotu.text())
         sagci2 = (float(self.sagiyi.text())/sagt)**2
         solcu2 = (float(self.sagkotu.text())/sagt)**2
         sag=1-(sagci2+solcu2)
-        print(f"sag {sag}")
         toplam=(solt*sol+sagt*sag)/(solt+sagt)
         self.ginisonuc.setText(f"{round(toplam,5)}")
     def bellektanima(self):
@@ -217,7 +217,7 @@ class Main(QMainWindow):
     def hesapla4(self):
         sayı1=(float(self.x1.text())-float(self.x2.text()))**2
         sayı2=(float(self.y1.text())-float(self.y2.text()))**2
-        toplam=math.pow((sayı2+sayı1),0.5)
+        toplam=pow((sayı2+sayı1),0.5)
         self.dijlbl.setText(f"{round(toplam,3)}")
     def manhattan(self):
         self.manhat=QLabel(self)
@@ -267,7 +267,7 @@ class Main(QMainWindow):
         sayı1=(float(self.one.text())-float(self.one2.text()))**2
         sayı2 = (float(self.two.text())-float(self.two2.text()))**2
         sayı3 = (float(self.three.text())-float(self.three2.text()))**2
-        toplam=math.pow((sayı1+sayı2+sayı3),0.5)
+        toplam=pow((sayı1+sayı2+sayı3),0.5)
         self.manhatsonuc.setText(f"{round(toplam,5)}")
     def minkowski(self):
         self.minkowsbtn=QPushButton(self)
@@ -279,12 +279,148 @@ class Main(QMainWindow):
         sayı1 = (float(self.one.text())-float(self.one2.text()))**3
         sayı2 = (float(self.two.text())-float(self.two2.text()))**3
         sayı3 = (float(self.three.text())-float(self.three2.text()))**3
-        toplam=math.pow((sayı1+sayı2+sayı3),uc)
+        toplam=pow((sayı1+sayı2+sayı3),uc)
         self.manhatsonuc.setText(f"{round(toplam,5)}")
-
+    def oklid(self):
+        self.oklidx1=QLineEdit(self)
+        self.oklidx1.setPlaceholderText("x1")
+        self.oklidx1.move(10,700)
+        self.oklidx1.resize(30,30)
+        ####
+        self.oklidx2=QLineEdit(self)
+        self.oklidx2.setPlaceholderText("x2")
+        self.oklidx2.move(50,700)
+        self.oklidx2.resize(30,30)
+        #####
+        self.oklidx3=QLineEdit(self)
+        self.oklidx3.setPlaceholderText("x3")
+        self.oklidx3.move(90,700)
+        self.oklidx3.resize(30,30)
         
+        ######
+        self.oklidxx1=QLineEdit(self)
+        self.oklidxx1.setPlaceholderText("x1")
+        self.oklidxx1.move(170,700)
+        self.oklidxx1.resize(30,30)
+        ######
+        self.oklidxx2=QLineEdit(self)
+        self.oklidxx2.setPlaceholderText("x2")
+        self.oklidxx2.move(210,700)
+        self.oklidxx2.resize(30,30)
+         ######
+        self.oklidxx3=QLineEdit(self)
+        self.oklidxx3.setPlaceholderText("x3")
+        self.oklidxx3.move(250,700)
+        self.oklidxx3.resize(30,30)
 
-        
+        ########
+        self.oklidbtn=QPushButton(self)
+        self.oklidbtn.setText("Oklid Hesapla")
+        self.oklidbtn.move(290,700)
+        self.oklidbtn.resize(120,30)
+        ####
+        self.oklid_lbl=QLabel(self)
+        self.oklid_lbl.setText("sonuc")
+        self.oklid_lbl.move(10,750)
+        self.oklidbtn.clicked.connect(self.oklid_hesapla)
+    def oklid_hesapla(self):
+        sayı1=(float(self.oklidx1.text())-float(self.oklidxx1.text()))**2
+        sayı2=(float(self.oklidx2.text())-float(self.oklidxx2.text()))**2
+        sayı3=(float(self.oklidx3.text())-float(self.oklidxx3.text()))**2
+        kare=1/2
+        sonuc=pow((sayı1+sayı2+sayı3),kare)
+        self.oklid_lbl.setText(f"{round(sonuc,2)}")
+    def Knn(self):
+        self.knn_lbl=QLabel(self)
+        self.knn_lbl.setText(f"{'*'*50}\nKNN Hesaplaması")
+        self.knn_lbl.move(10,770)
+        self.knn_lbl.resize(300,30)
+        #######
+        self.knx=QLineEdit(self)
+        self.knx.setPlaceholderText("x1")
+        self.knx.resize(30, 30)
+        self.knx.move(10,800)
+         #######
+        self.knx_btn=QPushButton(self)
+        self.knx_btn.setText("x ekle")
+        self.knx_btn.resize(50,30)
+        self.knx_btn.move(50,800)
+        self.knx_btn.clicked.connect(self.x_total)
+        #######
+        self.kny=QLineEdit(self)
+        self.kny.setPlaceholderText("y1")
+        self.kny.resize(30, 30)
+        self.kny.move(120,800)
+        #######
+        self.kny_btn=QPushButton(self)
+        self.kny_btn.setText("y ekle")
+        self.kny_btn.resize(50,30)
+        self.kny_btn.move(160,800)
+        self.kny_btn.clicked.connect(self.y_total)
+        #######
+        self.m_total_btn=QPushButton(self)
+        self.m_total_btn.setText("m hesapla")
+        self.m_total_btn.resize(100,30)
+        self.m_total_btn.move(230,800)
+        #########
+        self.xy_reset_btn=QPushButton(self)
+        self.xy_reset_btn.setText("resetle")
+        self.xy_reset_btn.resize(100,30)
+        self.xy_reset_btn.move(350,800)
+        self.xy_reset_btn.clicked.connect(self.xy_reset)
+        #########
+        self.mx=QLineEdit(self)
+        self.mx.move(10,850)
+        self.mx.resize(40,30)
+        self.mx.setPlaceholderText("mx")
+        self.mx.setEnabled(False)
+        #######
+        self.my=QLineEdit(self)
+        self.my.move(50,850)
+        self.my.resize(40,30)
+        self.my.setPlaceholderText("my")
+        self.my.setEnabled(False)
+        ########
+        self.m_btn=QPushButton(self)
+        self.m_btn.move(90,850)
+        self.m_btn.resize(50,30)
+        self.m_btn.setText("m ekle")
+        self.m_btn.clicked.connect(self.m_total)
+        #########
+        self.m_hesap_btn=QPushButton(self)
+        self.m_hesap_btn.setText("e^2 hesapla")
+        self.m_hesap_btn.move(150,850)
+        self.m_hesap_btn.resize(100,30)
+        #########
+        self.e_lbl=QLabel(self)
+        self.e_lbl.setText("e^2:")
+        self.e_lbl.move(10,900)
+        #########
+    def x_total(self):
+        self.array_x.append(float(self.knx.text()))
+    def y_total(self):
+        self.array_x.append(float(self.kny.text()))
+    def xy_total(self):
+        totalx=0
+        totaly=0
+        for i in self.array_x:
+            totalx+=i
+        totalx/=len(self.array_x)
+        for i in self.array_y:
+            totaly+=i
+        totaly/=len(self.array_y)
+        self.mx.setText(f"{round(totalx,3)}")
+        self.my.setText(f"{round(totaly,3)}")
+    def xy_reset(self):
+        self.array_x.clear()
+        self.array_y.clear()
+        self.array_mx.clear()
+    def m_total(self):
+        pass
+
+
+
+    
 
 
 if __name__ == "__main__":

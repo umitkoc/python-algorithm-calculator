@@ -1,6 +1,6 @@
 from PyQt5.QtWidgets import QApplication, QLabel, QLineEdit, QWidget, QPushButton
 from sys import argv, exit
-from math import pow
+from math import pow,log2
 from os import system
 
 
@@ -110,7 +110,7 @@ class Main(QWidget):
         toplam = float(self.htxtxt3.text())+float(self.htxtxt4.text())
         sayı1 = float(self.htxtxt3.text())/toplam
         sayı2 = float(self.htxtxt4.text())/toplam
-        sonuc = -1*(math.log2(sayı1)*sayı1+math.log2(sayı2)*sayı2)*tur
+        sonuc = -1*(log2(sayı1)*sayı1+log2(sayı2)*sayı2)*tur
         self.total += sonuc
         self.htxtsonuc.setText(f"{round(self.total,4)}")
     def hesapla1(self):
@@ -119,7 +119,7 @@ class Main(QWidget):
         toplam = sayı1+sayı2
         sayı1 /= toplam
         sayı2 /= toplam
-        sonuc = -1*(math.log2(sayı1)*sayı1+math.log2(sayı2)*sayı2)
+        sonuc = -1*(log2(sayı1)*sayı1+log2(sayı2)*sayı2)
         self.lbl_hsonuc.setText(f"{round(sonuc,4)}")
     def gini(self):
         self.lbl3=QLabel(self)

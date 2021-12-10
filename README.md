@@ -1,28 +1,28 @@
-kodu alın
-bilgisayarınızda python yüklü olmalı
-ondan sonra terminal açın ve şu komutu yazıp enter basın
+get the code
+You must have python installed on your computer
+then open terminal and type the following command and press enter
 pip install pyinstaller
 pip install pyqt5
-yüklendikten sonra size yolladığım dosyayı ide içinde açın
-terminal açın ve şunu yazın
+After uploading, open the file I sent you in ide
+open terminal and type
 pyinstaller main.py --onefile
-5-10 dk içinde .exe dosyayı oluşturacaktır.
-exe dosyası dist klasör içinde bulunacaktır.
+It will create the .exe file in 5-10 minutes.
+The exe file will be located in the dist folder.
 
 
 -------
-içinde bulunan özellik
-1-sınıflandırma:
-----> H(T) hesaplama
-----> H(X,T) hesaplama
------> kazanç oranı hesaplama : H(T)-H(X,T)
+feature in
+1-classification:
+----> H(T) calculation
+----> H(X,T) calculation
+-----> calculating earnings ratio : H(T)-H(X,T)
 
-2-gini hesaplaması
-(sag ve soldaki iyi kötü yazmanız yeterliidir)
+2-gini calculation
+(it is enough to write good and bad on the right and left)
 
-3-öklit hesabı
+3-euclidean calculus
 
-4-manhattan hesabı
+4-manhattan account
 
 
-5-mikowski hesabı
+5-mikowski account
